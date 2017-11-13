@@ -12,7 +12,10 @@
     "autoload": {
         "psr-4": {
             "XmtApp\\Payment\\": "src/"
-        }
+        },
+        "classmap": [
+            "alipaySdk"
+        ]
     },
     "require": {
         "php": ">=7.0",
