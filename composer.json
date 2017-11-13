@@ -1,0 +1,13 @@
+{
+    "name": "xmtapp/laravel-pay",
+    "description": "laravel pay payment",
+    "license": "Apache License 2.0",
+    "authors": [
+        {
+            "name": "董垚",
+            "email": "dong_yao_cn@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
