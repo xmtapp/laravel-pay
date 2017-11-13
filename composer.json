@@ -9,5 +9,14 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "XmtApp\\Payment\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "ext-mbstring": "*",
+        "ext-openssl": "*"
+    }
 }
