@@ -9,6 +9,7 @@
 namespace XmtApp\Payment;
 
 use Illuminate\Support\ServiceProvider;
+use XmtApp\Payment\Alipay\AuthAlipay;
 
 
 class PayServiceProvider extends  ServiceProvider
@@ -21,9 +22,20 @@ class PayServiceProvider extends  ServiceProvider
      */
     public function boot()
     {
-        $this->setPublishes();
-
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-pay.php', 'laravel-pay');
+
+        $this->setPublishes();
+    }
+
+
+    /**
+     * 在容器中注册绑定
+     */
+    public function register()
+    {
+        $this->app->singleton('alipay-auth', function () {
+            return new AuthAlipay();
+        });
     }
 
 
@@ -33,5 +45,6 @@ class PayServiceProvider extends  ServiceProvider
             __DIR__.'/../config/laravel-pay.php' => config_path('laravel-pay.php')
         ], 'laravel-pay');
     }
+
 
 }

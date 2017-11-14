@@ -9,11 +9,39 @@
 namespace XmtApp\Payment\Alipay\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
+use XmtApp\Payment\Alipay\Facades\AuthAlipay;
 
 class AuthMiddleware
 {
     public function handle($request, Closure $next)
     {
+        if ($this->isAlipayClient($request)) {
+            // 获取授权链接
+            $uri = AuthAlipay::getAuthRedirectUrl($request->getUri());
+
+            // die('--->' . $uri);
+
+            return redirect($uri);
+        }
+
         return $next($request);
+    }
+
+
+    /**
+     * 判断是否支付宝扫码
+     * @param $request
+     * @return bool
+     */
+    protected function isAlipayClient(Request $request)
+    {
+        $userAgent = $request->header('user-agent');
+
+        if (strpos($userAgent, 'AlipayClient') != false) {
+            return true;
+        }
+
+        return false;
     }
 }

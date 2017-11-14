@@ -30,6 +30,9 @@ return [
 
         // 返回结果格式化类型
         'format' => env('PAY_ALIPAY_FORMAT', 'json'),
+
+        // 用户授权登录
+        'auth_scope' => env('PAY_ALIPAY_AUTH_SCOPE', 'auth_user'),
     ],
 
 ];
