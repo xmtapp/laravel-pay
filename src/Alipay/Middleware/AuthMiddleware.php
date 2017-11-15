@@ -20,8 +20,6 @@ class AuthMiddleware
             // 获取授权链接
             $uri = AuthAlipay::getAuthRedirectUrl($request->getUri());
 
-            // die('--->' . $uri);
-
             return redirect($uri);
         }
 
@@ -36,9 +34,9 @@ class AuthMiddleware
      */
     protected function isAlipayClient(Request $request)
     {
-        $userAgent = $request->header('user-agent');
+        $userAgent = strtolower($request->header('user-agent'));
 
-        if (strpos($userAgent, 'AlipayClient') != false) {
+        if (strpos($userAgent, 'alipayclient') != false) {
             return true;
         }
 
