@@ -16,30 +16,61 @@ class AuthMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if ($this->isAlipayClient($request)) {
-            // 获取授权链接
-            $uri = AuthAlipay::getAuthRedirectUrl($request->getUri());
+        if ($this->isAlipayBrowser($request) && !$this->needReauth()) {
+            if ($request->has('auth_code')) {
+                $tokens = AuthAlipay::getAccessToken($request->auth_code);
 
-            return redirect($uri);
+                if (!empty($tokens)) {
+                    $user_info = AuthAlipay::userInfo($tokens->access_token);
+
+                    session(['alipay.user_info' => $user_info]);
+                }
+
+                return redirect()->to($this->getTargetUrl($request));
+            }
+
+            session()->forget('wechat.oauth_user');
+
+            // 获取授权链接
+            return redirect()->to(AuthAlipay::getAuthRedirectUrl($request->fullUrl()));
         }
 
         return $next($request);
     }
 
+    /**
+     * Build the target business url.
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    protected function getTargetUrl($request)
+    {
+        $queries = array_except($request->query(), ['app_id', 'source', 'scope', 'auth_code']);
+
+        return $request->url().(empty($queries) ? '' : '?'.http_build_query($queries));
+    }
+
+    /**
+     * 判断是否需要重新授权
+     * @return bool
+     */
+    private function needReauth()
+    {
+        $user_info = session('alipay.user_info');
+
+        return empty($user_info) ? false : true;
+    }
 
     /**
      * 判断是否支付宝扫码
-     * @param $request
+     *
+     * @param \Illuminate\Http\Request $request
      * @return bool
      */
-    protected function isAlipayClient(Request $request)
+    protected function isAlipayBrowser($request)
     {
-        $userAgent = strtolower($request->header('user-agent'));
-
-        if (strpos($userAgent, 'alipayclient') != false) {
-            return true;
-        }
-
-        return false;
+        return strpos(strtolower($request->header('user_agent')), 'alipayclient') !== false;
     }
 }
