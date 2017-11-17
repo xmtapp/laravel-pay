@@ -39,15 +39,23 @@ class PayServiceProvider extends ServiceProvider
 
         $this->app->singleton('\AopClient', function () {
             $aop = new \AopClient();
-
             $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
-            $aop->appId = config('laravel-pay.alipay.appid');
-            $aop->rsaPrivateKey = config('laravel-pay.alipay.private_key');
-            $aop->alipayrsaPublicKey = config('laravel-pay.alipay.public_key');
-            $aop->apiVersion = config('laravel-pay.alipay.api_version');
-            $aop->signType = config('laravel-pay.alipay.sign_type');
-            $aop->postCharset = config('laravel-pay.alipay.charset');
-            $aop->format = config('laravel-pay.alipay.format');
+
+            $config = config('laravel-pay.alipay');
+            if ($config['sandbox_enabled'] == true) {
+                $aop->gatewayUrl                = 'https://openapi.alipaydev.com/gateway.do';
+                $config['appid']                = $config['sandbox']['appid'];
+                $config['app_private_key']      = $config['sandbox']['app_private_key'];
+                $config['alipay_public_key']    = $config['sandbox']['alipay_public_key'];
+            }
+
+            $aop->appId                 = $config['appid'];
+            $aop->rsaPrivateKeyFilePath = $config['app_private_key'];
+            $aop->alipayPublicKey       = $config['alipay_public_key'];
+            $aop->apiVersion            = $config['api_version'];
+            $aop->signType              = $config['sign_type'];
+            $aop->postCharset           = $config['charset'];
+            $aop->format                = $config['format'];
 
             return $aop;
         });

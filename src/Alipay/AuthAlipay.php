@@ -14,7 +14,7 @@ use AlipayUserInfoShareRequest;
 class AuthAlipay
 {
     const AUTH_API_URL = 'https://openauth.alipay.com/oauth2/publicAppAuthorize.htm';
-
+    const AUTH_API_SANDBOX_URL = 'https://openauth.alipaydev.com/oauth2/publicAppAuthorize.htm';
 
     /**
      * 获取用户授权地址
@@ -23,11 +23,13 @@ class AuthAlipay
      */
     public function getAuthRedirectUrl(string $redirect_uri)
     {
-        $appid = config('laravel-pay.alipay.appid');
+        $config = config('laravel-pay.alipay');
 
-        $scope = config('laravel-pay.alipay.auth_scope');
-
-        $uri = self::AUTH_API_URL . '?app_id=' . $appid . '&scope=' . $scope . '&redirect_uri=' . urlencode($redirect_uri);
+        if ($config['sandbox_enabled'] == true) {
+            $uri = self::AUTH_API_SANDBOX_URL . '?app_id=' . $config['sandbox']['appid'] . '&scope=' . $config['auth_scope'] . '&redirect_uri=' . urlencode($redirect_uri);
+        } else {
+            $uri = self::AUTH_API_URL . '?app_id=' . $config['appid'] . '&scope=' . $config['auth_scope'] . '&redirect_uri=' . urlencode($redirect_uri);
+        }
 
         return $uri;
     }

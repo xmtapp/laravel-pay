@@ -13,11 +13,11 @@ return [
         // 支付宝appID
         'appid' => env('PAY_ALIPAY_APPID', ''),
 
-        // 支付宝私有密匙
-        'private_key' => env('PAY_ALIPAY_PRIVATE_KEY', ''),
+        // App私有密匙
+        'app_private_key' => env('PAY_ALIPAY_APP_PRIVATE_KEY', ''),
 
         // 支付宝公有密匙
-        'public_key' => env('PAY_ALIPAY_PUBLIC_KEY', ''),
+        'alipay_public_key' => env('PAY_ALIPAY_PUBLIC_KEY', ''),
 
         // 接口版本
         'api_version' => env('PAY_ALIPAY_API_VERSION', '1.0'),
@@ -33,6 +33,21 @@ return [
 
         // 用户授权登录
         'auth_scope' => env('PAY_ALIPAY_AUTH_SCOPE', 'auth_user'),
+
+        // 是否启用沙箱配置测试
+        'sandbox_enabled' => env('PAY_ALIPAY_SANDBOX_ENABLED', false),
+
+        // 支付宝沙箱参数配置
+        'sandbox' => [
+            // 支付宝appID
+            'appid' => env('PAY_SANDBOX_ALIPAY_APPID', ''),
+
+            // APP私有密匙
+            'app_private_key' => env('PAY_SANDBOX_ALIPAY_APP_PRIVATE_KEY', ''),
+
+            // 支付宝公有密匙
+            'alipay_public_key' => env('PAY_SANDBOX_ALIPAY_PUBLIC_KEY', ''),
+        ],
     ],
 
 ];
