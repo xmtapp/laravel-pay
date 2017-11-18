@@ -75,23 +75,57 @@ class AuthAlipay
         $result = $aop->execute($request, $access_token);
 
         $responseNode = str_replace(".", "_", $request->getApiMethodName()) . "_response";
-
         if (isset($result->{$responseNode}->user_id)) {
-            $attributes = [
-                'id' => $result->{$responseNode}->user_id,
-                'nickname' => $result->{$responseNode}->nick_name,
-                'avatar' => $result->{$responseNode}->avatar,
-                'province' => $result->{$responseNode}->province,
-                'city' => $result->{$responseNode}->city,
-                'is_student_certified' => strtoupper($result->{$responseNode}->is_student_certified) == 'T' ? 1 : 0,
-                'user_type' => $result->{$responseNode}->user_type,
-                'user_status' => $result->{$responseNode}->user_status,
-                'is_certified' => $result->{$responseNode}->is_certified,
-                'gender' => strtoupper($result->{$responseNode}->gender) == 'F' ? 2 : (strtoupper($result->{$responseNode}->gender) == 'M' ? 1 : 0),
-                'original' => $result->{$responseNode}
-            ];
+            $res_attrs = $result->{$responseNode};
 
-            return new User($attributes);
+            $user = new User();
+            //userID
+            $user->setAttribute('id', $res_attrs->user_id);
+            // 昵称
+            if (isset($res_attrs->nick_name)) {
+                $user->setAttribute('nickname', $res_attrs->nick_name);
+            } else {
+                $user->setAttribute('nickname', $res_attrs->user_id);
+            }
+            // 头像
+            if (isset($res_attrs->avatar)) {
+                $user->setAttribute('avatar', $res_attrs->avatar);
+            }
+            // 性别
+            if (isset($res_attrs->gender)) {
+                $gender = strtoupper($result->{$responseNode}->gender) == 'F' ? 2 : (strtoupper($result->{$responseNode}->gender) == 'M' ? 1 : 0);
+            } else {
+                $gender = 0;
+            }
+            $user->setAttribute('gender', $gender);
+            // 省份
+            if (isset($res_attrs->province)) {
+                $user->setAttribute('provinc', $res_attrs->provinc);
+            }
+            // 城市
+            if (isset($res_attrs->city)) {
+                $user->setAttribute('city', $res_attrs->city);
+            }
+            // 是否通过学生认证
+            if (isset($res_attrs->is_student_certified)) {
+                $user->setAttribute('is_student_certified', $res_attrs->is_student_certified);
+            }
+            // 用户类型
+            if (isset($res_attrs->user_type)) {
+                $user->setAttribute('user_type', $res_attrs->user_type);
+            }
+            // 用户状态
+            if (isset($res_attrs->user_status)) {
+                $user->setAttribute('user_status', $res_attrs->user_status);
+            }
+            // 是否通过认证
+            if (isset($res_attrs->is_certified)) {
+                $user->setAttribute('is_certified', $res_attrs->is_certified);
+            }
+
+            $user->setAttribute('original', $res_attrs);
+
+            return $user;
         }
 
         return [];

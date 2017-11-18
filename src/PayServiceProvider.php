@@ -47,6 +47,7 @@ class PayServiceProvider extends ServiceProvider
                 $config['appid']                = $config['sandbox']['appid'];
                 $config['app_private_key']      = $config['sandbox']['app_private_key'];
                 $config['alipay_public_key']    = $config['sandbox']['alipay_public_key'];
+                $config['seller_id']    = $config['sandbox']['seller_id'];
             }
 
             $aop->appId                 = $config['appid'];
@@ -56,9 +57,15 @@ class PayServiceProvider extends ServiceProvider
             $aop->signType              = $config['sign_type'];
             $aop->postCharset           = $config['charset'];
             $aop->format                = $config['format'];
+            $aop->seller_id             = $config['seller_id'];
 
             return $aop;
         });
+
+        $this->app->bind(
+            'XmtApp\Payment\Contracts\Notify',
+            'XmtApp\Payment\Alipay\HandleNotify'
+        );
     }
 
 

@@ -34,6 +34,8 @@ return [
         // 用户授权登录
         'auth_scope' => env('PAY_ALIPAY_AUTH_SCOPE', 'auth_user'),
 
+        'seller_id' => env('PAY_ALIPAY_SELLER_ID', ''),
+
         // 是否启用沙箱配置测试
         'sandbox_enabled' => env('PAY_ALIPAY_SANDBOX_ENABLED', false),
 
@@ -47,6 +49,8 @@ return [
 
             // 支付宝公有密匙
             'alipay_public_key' => env('PAY_SANDBOX_ALIPAY_PUBLIC_KEY', ''),
+
+            'seller_id' => env('PAY_SANDBOX_ALIPAY_SELLER_ID', ''),
         ],
     ],
 

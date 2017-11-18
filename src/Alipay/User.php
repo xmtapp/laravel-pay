@@ -23,7 +23,7 @@ class User implements ArrayAccess, UserInfo, JsonSerializable
      *
      * @param array $attributes
      */
-    public function __construct(array $attributes)
+    public function __construct(array $attributes = array())
     {
         $this->attributes = $attributes;
     }
