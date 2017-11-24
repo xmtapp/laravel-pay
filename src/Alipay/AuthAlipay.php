@@ -100,7 +100,7 @@ class AuthAlipay
             $user->setAttribute('gender', $gender);
             // 省份
             if (isset($res_attrs->province)) {
-                $user->setAttribute('provinc', $res_attrs->provinc);
+                $user->setAttribute('provinc', $res_attrs->province);
             }
             // 城市
             if (isset($res_attrs->city)) {
