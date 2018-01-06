@@ -11,7 +11,7 @@ namespace XmtApp\Payment\Alipay\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class AopClient extends Facade
+class Alipay extends Facade
 {
     protected static function getFacadeAccessor()
     {
