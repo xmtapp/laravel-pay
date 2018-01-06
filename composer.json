@@ -17,6 +17,13 @@
             "alipaySdk"
         ]
     },
+	"extra": {
+        "laravel": {
+            "providers": [
+                "XmtApp\\Payment\\PayServiceProvider"
+            ]
+        }
+    },
     "require": {
         "php": ">=7.0",
         "ext-mbstring": "*",
