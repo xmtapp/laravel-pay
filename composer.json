@@ -23,7 +23,7 @@
                 "XmtApp\\Payment\\PayServiceProvider"
             ],
             "aliases": {
-                "AopClient": "XmtApp\\Payment\\Alipay\\Facades\\Alipay"
+                "Alipay": "XmtApp\\Payment\\Alipay\\Facades\\Alipay"
             }
         }
     },
