@@ -21,10 +21,7 @@
         "laravel": {
             "providers": [
                 "XmtApp\\Payment\\PayServiceProvider"
-            ],
-            "aliases": {
-                "Alipay": "XmtApp\\Payment\\Alipay\\Facades\\Alipay"
-            }
+            ]
         }
     },
     "require": {

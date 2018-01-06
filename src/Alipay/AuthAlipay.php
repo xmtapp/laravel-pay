@@ -42,7 +42,7 @@ class AuthAlipay
      */
     public function getAccessToken(string $code)
     {
-        $aop = resolve('\AopClient');
+        $aop = resolve(Alipay::class);
 
         $aop->format = 'json'; // 仅支持json格式
 
@@ -67,7 +67,7 @@ class AuthAlipay
      */
     public function userInfo(string $access_token)
     {
-        $aop = resolve('\AopClient');
+        $aop = resolve(Alipay::class);
 
         $aop->format = 'json'; // 仅支持json格式
 

@@ -10,8 +10,6 @@ namespace XmtApp\Payment\Alipay;
 
 
 use XmtApp\Payment\Contracts\Notify;
-use XmtApp\Payment\Alipay\AlipayTradeService;
-
 use Symfony\Component\HttpFoundation\Response;
 
 class HandleNotify implements Notify
@@ -73,7 +71,7 @@ class HandleNotify implements Notify
      * @return boolean
      */
     private function check($arr){
-        $aop = resolve('\AopClient');
+        $aop = resolve(Alipay::class);
 
         $result = $aop->rsaCheckV1($arr, $aop->alipayPublicKey, $aop->signType);
         return $result;

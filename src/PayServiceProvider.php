@@ -10,6 +10,7 @@ namespace XmtApp\Payment;
 
 use Illuminate\Support\ServiceProvider;
 use XmtApp\Payment\Alipay\AuthAlipay;
+use XmtApp\Payment\Alipay\Alipay;
 
 
 class PayServiceProvider extends ServiceProvider
@@ -37,8 +38,8 @@ class PayServiceProvider extends ServiceProvider
             return new AuthAlipay();
         });
 
-        $this->app->singleton(\AopClient::class, function () {
-            $aop = new \AopClient();
+        $this->app->singleton(Alipay::class, function () {
+            $aop = new Alipay();
             $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
 
             $config = config('laravel-pay.alipay');
