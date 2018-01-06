@@ -37,7 +37,7 @@ class PayServiceProvider extends ServiceProvider
             return new AuthAlipay();
         });
 
-        $this->app->singleton('\AopClient', function () {
+        $this->app->singleton(\AopClient::class, function () {
             $aop = new \AopClient();
             $aop->gatewayUrl = 'https://openapi.alipay.com/gateway.do';
 

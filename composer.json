@@ -17,11 +17,14 @@
             "alipaySdk"
         ]
     },
-	"extra": {
+    "extra": {
         "laravel": {
             "providers": [
                 "XmtApp\\Payment\\PayServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "AopClient": "XmtApp\\Payment\\Alipay\\Facades\\AopClient"
+            }
         }
     },
     "require": {

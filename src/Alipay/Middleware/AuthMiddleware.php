@@ -29,7 +29,7 @@ class AuthMiddleware
                 return redirect()->to($this->getTargetUrl($request));
             }
 
-            session()->forget('wechat.oauth_user');
+            session()->forget('alipay.user_info');
 
             // 获取授权链接
             return redirect()->to(AuthAlipay::getAuthRedirectUrl($request->fullUrl()));
