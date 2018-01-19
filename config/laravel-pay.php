@@ -25,6 +25,9 @@ return [
         // 签名类型
         'sign_type' => env('PAY_ALIPAY_SIGN_TYPE', 'RSA2'),
 
+        // 签名类型
+        'aes_key' => env('PAY_ALIPAY_AES_KEY', ''),
+
         // 提交的字符编码格式
         'charset' => env('PAY_ALIPAY_CHARSET','utf-8'),
 

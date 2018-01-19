@@ -59,6 +59,7 @@ class PayServiceProvider extends ServiceProvider
             $aop->postCharset           = $config['charset'];
             $aop->format                = $config['format'];
             $aop->seller_id             = $config['seller_id'];
+            $aop->encryptKey            = $config['aes_key'];
 
             return $aop;
         });
