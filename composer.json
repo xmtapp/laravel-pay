@@ -1,7 +1,7 @@
 {
     "name": "xmtapp/laravel-pay",
     "description": "laravel pay payment",
-    "license": "Apache License",
+    "license": "MIT License",
     "authors": [
         {
             "name": "董垚",
