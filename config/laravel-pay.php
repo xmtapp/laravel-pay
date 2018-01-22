@@ -25,6 +25,9 @@ return [
         // 签名类型
         'sign_type' => env('PAY_ALIPAY_SIGN_TYPE', 'RSA2'),
 
+        // 是否需要对参数加密
+        'need_encrypt' => env('PAY_ALIPAY_NEED_ENCRYPT', false),
+
         // 签名类型
         'aes_key' => env('PAY_ALIPAY_AES_KEY', ''),
 
