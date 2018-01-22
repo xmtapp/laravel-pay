@@ -3,7 +3,7 @@
  * ALIPAY API: alipay.acquire.createandpay request
  *
  * @author auto create
- * @since 1.0, 2016-11-22 19:31:24
+ * @since 1.0, 2017-12-01 21:17:42
  */
 class AlipayAcquireCreateandpayRequest
 {

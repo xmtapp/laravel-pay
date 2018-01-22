@@ -3,7 +3,7 @@
  * ALIPAY API: koubei.item.batchquery request
  *
  * @author auto create
- * @since 1.0, 2017-08-31 21:06:54
+ * @since 1.0, 2018-01-02 17:35:46
  */
 class KoubeiItemBatchqueryRequest
 {

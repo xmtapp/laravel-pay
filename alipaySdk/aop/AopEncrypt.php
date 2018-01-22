@@ -7,45 +7,37 @@
  * Time: 下午3:25
  */
 
-if (!function_exists('encrypt')) {
-    /**
-     * 加密方法
-     * @param string $str
-     * @return string
-     */
-    function encrypt($str, $screct_key)
-    {
-        //AES, 128 模式加密数据 CBC
-        $screct_key = base64_decode($screct_key);
-        $str = trim($str);
-        $str = addPKCS7Padding($str);
-        $iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC), 1);
-        $encrypt_str = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $screct_key, $str, MCRYPT_MODE_CBC);
-        return base64_encode($encrypt_str);
-    }
+/**
+ * 加密方法
+ * @param string $str
+ * @return string
+ */
+ function alipay_encrypt($str,$screct_key){
+	//AES, 128 模式加密数据 CBC
+	$screct_key = base64_decode($screct_key);
+	$str = trim($str);
+	$str = addPKCS7Padding($str);
+	$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128,MCRYPT_MODE_CBC),1);
+	$encrypt_str =  mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $screct_key, $str, MCRYPT_MODE_CBC);
+	return base64_encode($encrypt_str);
 }
 
+/**
+ * 解密方法
+ * @param string $str
+ * @return string
+ */
+ function alipay_decrypt($str,$screct_key){
+	//AES, 128 模式加密数据 CBC
+	$str = base64_decode($str);
+	$screct_key = base64_decode($screct_key);
+	$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128,MCRYPT_MODE_CBC),1);
+	$encrypt_str =  mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $screct_key, $str, MCRYPT_MODE_CBC);
+	$encrypt_str = trim($encrypt_str);
 
+	$encrypt_str = stripPKSC7Padding($encrypt_str);
+	return $encrypt_str;
 
-if (!function_exists('decrypt')) {
-
-    /**
-     * 解密方法
-     * @param string $str
-     * @return string
-     */
-    function decrypt($str,$screct_key){
-        //AES, 128 模式加密数据 CBC
-        $str = base64_decode($str);
-        $screct_key = base64_decode($screct_key);
-        $iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128,MCRYPT_MODE_CBC),1);
-        $encrypt_str =  mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $screct_key, $str, MCRYPT_MODE_CBC);
-        $encrypt_str = trim($encrypt_str);
-
-        $encrypt_str = stripPKSC7Padding($encrypt_str);
-        return $encrypt_str;
-
-    }
 }
 
 /**
